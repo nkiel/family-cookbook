@@ -6,10 +6,12 @@ export default class Recipe {
   _id?: ObjectId;
   title!: string;
   description?: string;
-  length?: { prep?: number; cook: number; }
+  prepTime?: number;
+  cookTime?: number;
+  serves?: number;
   ingredients!: Ingredient[];
-  steps!: string[];
-  prep?: string[];
+  cookSteps!: string[];
+  prepSteps?: string[];
   notes?: string[];
   createTime?: Date;
   updateTime?: Date;
@@ -18,5 +20,5 @@ export default class Recipe {
 export const defaultRecipe: Recipe = {
   title: '',
   ingredients: [],
-  steps: [],
+  cookSteps: [],
 };

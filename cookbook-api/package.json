@@ -3,10 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev-watch": "concurrently \"pnpm run dev-build\" \"npx nodemon dist/server.js -e ts,js,json\"",
-    "dev": "pnpm run build && pnpm run start",
-    "start": "node dist/server.js",
-    "build": "tsc",
+    "dev": "nodemon -L -e ts,json --exec pnpm run start",
+    "start": "pnpm run build && pnpm run api",
+    "api": "node dist/server.js",
+    "build": "tsc --build --verbose",
     "dev-build": "tsc --watch"
   },
   "dependencies": {

@@ -1,9 +1,12 @@
+/**
+ * Project loosely based off `npx express-generator`
+ */
 import app from './app';
 import debug from 'debug';
 import http from 'http';
 // import Error from 'node/http';
 
-debug('test-proj:server');
+debug('test:server');
 
 /**
  * Get port from environment and store in Express.
@@ -12,10 +15,9 @@ debug('test-proj:server');
 var port = Number(process.env.PORT) || '3333';
 app.set('port', port);
 
-
 /**
  * Listen on provided port, on all network interfaces.
-*/
+ */
 
 var server = http.createServer(app);
 server.listen(port);
@@ -32,11 +34,9 @@ function onError(error: Error) {
   //   throw error;
   // }
 
-  var bind = typeof port === 'string'
-    ? 'Pipe ' + port
-    : 'Port ' + port;
+  var bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
 
-    console.error(`${error.name}\n\t${error.message}\n@${error.stack}`);
+  console.error(`${error.name}\n\t${error.message}\n@${error.stack}`);
   // handle specific listen errors with friendly messages
   // switch (error.code) {
   //   case 'EACCES':
@@ -58,8 +58,9 @@ function onError(error: Error) {
 
 function onListening() {
   var addr = server.address();
-  var bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + (addr ? addr.port : 'null');
+  var bind =
+    typeof addr === 'string'
+      ? 'pipe ' + addr
+      : 'port ' + (addr ? addr.port : 'null');
   debug('Listening on ' + bind);
 }

@@ -7,6 +7,7 @@ import path from 'path';
 import indexRouter from './routes/index';
 import recipeRouter from './routes/recipe';
 import testRouter from './routes/test';
+import configRouter from './routes/config';
 
 var app = express();
 
@@ -32,5 +33,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/recipe', recipeRouter);
 app.use('/test', testRouter);
+app.use('/config', configRouter);
 
 export default app;

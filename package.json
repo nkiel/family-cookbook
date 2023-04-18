@@ -1,36 +1,40 @@
 {
-	"name": "family-cookbook",
-	"version": "0.0.0",
-	"scripts": {
-		"start": "echo \"build ui and copy to api/public",
-		"start-server": "cd cookbook-api && pnpm run dev",
-		"start-docker-db": "docker compose -f .devcontainer/docker-compose.yml up db",
-		"common-link-unix" : "ln -s ../../cookbook-common ./cookbook-api/src/common && ln -s ../../cookbook-common ./cookbook-ui/src/common",
-		"common-link-win" : "mklink /D .\\cookbook-api\\src\\common\\ ..\\..\\cookbook-common\\ && mklink /D .\\cookbook-ui\\src\\common\\ ..\\..\\cookbook-common\\",
-		"full-install" : "pnpm run common-link-unix && pnpm install && pnpm run install-api && pnpm run install-ui",
-		"install-api" : "cd cookbook-api && pnpm install",
-		"install-ui" : "cd cookbook-ui && pnpm install",
-		"common-clean-unix" : "rm"
-	},
-	"devDependencies": {
-		"@babel/core": "^7.20.12",
-		"@emotion/react": "^11.10.5",
-		"@emotion/styled": "^11.10.5",
-		"@mui/types": "^7.2.3",
-		"@types/cookie-parser": "^1.4.3",
-		"@types/cors": "^2.8.13",
-		"@types/debug": "^4.1.7",
-		"@types/express": "^4.17.16",
-		"@types/morgan": "^1.9.4",
-		"@types/node": "^18.11.18",
-		"@types/react": "^18.0.27",
-		"@types/react-dom": "^18.0.10",
-		"@types/react-router-dom": "^5.3.3",
-		"eslint": "^8.33.0",
-		"mongoose": "^6.9.0",
-		"prettier": "^2.8.3"
-	},
-	"dependencies": {
-		"express-generator": "^4.16.1"
-	}
+  "name": "family-cookbook",
+  "version": "0.0.0",
+  "scripts": {
+    "start": "echo \"#TODO build ui and copy to api/public\"",
+    "dev-api": "cd cookbook-api && pnpm run dev",
+    "dev-ui": "cd cookbook-ui && pnpm run dev",
+    "dev-docker-db": "docker compose -f .devcontainer/docker-compose.yml up db",
+    "common-link-unix": "ln -s ../../cookbook-common ./cookbook-api/src/common && ln -s ../../cookbook-common ./cookbook-ui/src/common",
+    "common-link-win": "mklink /D .\\cookbook-api\\src\\common\\ ..\\..\\cookbook-common\\ && mklink /D .\\cookbook-ui\\src\\common\\ ..\\..\\cookbook-common\\",
+    "common-link-clean-unix": "rm ./cookbook-api/src/common ; rm ./cookbook-ui/src/common",
+    "common-link-clean-win": "del ./cookbook-api/src/common ; del ./cookbook-ui/src/common",
+    "setup-unix": "pnpm run common-link-clean-unix ; pnpm run common-link-unix ; pnpm run install-all",
+    "setup-win": "pnpm run common-link-clean-win ; pnpm run common-link-win ; pnpm run install-all",
+    "install-all": "pnpm install ; pnpm run install-api ; pnpm run install-ui",
+    "install-api": "cd cookbook-api && pnpm install",
+    "install-ui": "cd cookbook-ui && pnpm install"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.12",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/types": "^7.2.3",
+    "@types/cookie-parser": "^1.4.3",
+    "@types/cors": "^2.8.13",
+    "@types/debug": "^4.1.7",
+    "@types/express": "^4.17.16",
+    "@types/morgan": "^1.9.4",
+    "@types/node": "^18.11.18",
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10",
+    "@types/react-router-dom": "^5.3.3",
+    "eslint": "^8.33.0",
+    "mongoose": "^6.9.0",
+    "prettier": "^2.8.3"
+  },
+  "dependencies": {
+    "express-generator": "^4.16.1"
+  }
 }

@@ -4,14 +4,17 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "start": "pnpm run dev",
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@babel/core": "^7.21.4",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@mui/base": "5.0.0-alpha.116",
+    "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.11.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

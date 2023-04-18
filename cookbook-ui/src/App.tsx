@@ -1,23 +1,28 @@
 import { useState } from 'react';
 import { Link as RouterLink, Outlet } from 'react-router-dom';
-import { AppBar, Box, Container, Toolbar, Typography } from '@mui/material';
+import {
+  AppBar,
+  Box,
+  Container,
+  ThemeProvider,
+  createTheme,
+  Toolbar,
+  Typography,
+} from '@mui/material';
+import AppHeader from './components/AppHeader';
 
 import './App.css';
 
+const appTheme = createTheme();
+
 function App() {
   return (
-    <Box>
-      <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h1">
-            <RouterLink to="/">Kiel Cookbook</RouterLink>
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <Container className="page">
+    <ThemeProvider theme={appTheme}>
+      <Box>
+        <AppHeader />
         <Outlet />
-      </Container>
-    </Box>
+      </Box>
+    </ThemeProvider>
   );
 }
 export default App;
