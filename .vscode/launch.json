@@ -5,24 +5,29 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Debug Server",
+      "name": "Debug react UI - test",
+      "type": "docker",
       "request": "launch",
-      "runtimeArgs": [
-        "start-server"
-      ],
-      "runtimeExecutable": "pnpm",
       "skipFiles": [
         "<node_internals>/**"
       ],
+      "platform": "node"
+    },
+    {
+      "name": "Debug App",
+      "request": "launch",
+      "runtimeArgs": ["run", "dev-ui"],
+      "runtimeExecutable": "pnpm",
+      "skipFiles": ["<node_internals>/**"],
       "type": "node"
     },
     {
-      "type": "node",
+      "name": "Debug Api",
       "request": "launch",
-      "name": "Launch maybe Program",
-      "program": "${workspaceFolder}/cookbook-api/src/server.ts",
-      "preLaunchTask": "tsc: build - tsconfig.json",
-      "outFiles": ["${workspaceFolder}/out/**/*.js"]
+      "runtimeArgs": ["run", "dev-api"],
+      "runtimeExecutable": "pnpm",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node"
     }
   ]
 }
