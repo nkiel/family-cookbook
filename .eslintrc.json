@@ -21,7 +21,7 @@
   "rules": {
     "react-refresh/only-export-components": [
       "warn",
-      { "allowConstantExport": true },
+      { "allowConstantExport": true }
     ],
     "object-curly-newline": "off",
     "indent": "off",
