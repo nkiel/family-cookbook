@@ -7,6 +7,8 @@ import configRouter from './routes/config';
 
 const app = express();
 
+// debug('test:server');
+
 // switch (process.env.ENV_NAME) {
 //   case 'prod':
 //     {
@@ -19,8 +21,6 @@ const app = express();
 //     }
 //     break;
 // }
-
-// debug('test:server');
 
 // app.use(cors());
 // app.use(express.json());
@@ -35,4 +35,5 @@ api.use('/config', configRouter);
 
 app.use('/api', api);
 
+// eslint-disable-next-line import/prefer-default-export
 export const handler = app;
