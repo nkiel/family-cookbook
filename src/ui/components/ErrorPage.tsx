@@ -8,8 +8,8 @@ function ErrorPage() {
     <Container sx={{ align: 'center' }}>
       <Stack>
         <RouterLink to="/">Go Home</RouterLink>
-        Error page... TODO, build
-        {JSON.stringify(error)}
+        Error page... TODO build <br />
+        {JSON.stringify(error, null, 2).replace('/n', '<br/>')}
       </Stack>
     </Container>
   );

@@ -20,7 +20,7 @@ import {
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import AddIcon from '@mui/icons-material/Add';
 import useApi from '../services/useApi';
-import Recipe from '../common/models/Recipe';
+import Recipe from '../../common/models/Recipe';
 import { ZoomOutMapOutlined } from '@mui/icons-material';
 
 async function CookbookLoader() {

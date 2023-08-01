@@ -5,26 +5,9 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Debug react UI - test",
-      "type": "docker",
-      "request": "launch",
-      "skipFiles": [
-        "<node_internals>/**"
-      ],
-      "platform": "node"
-    },
-    {
       "name": "Debug App",
       "request": "launch",
-      "runtimeArgs": ["run", "dev-ui"],
-      "runtimeExecutable": "pnpm",
-      "skipFiles": ["<node_internals>/**"],
-      "type": "node"
-    },
-    {
-      "name": "Debug Api",
-      "request": "launch",
-      "runtimeArgs": ["run", "dev-api"],
+      "runtimeArgs": ["run", "dev"],
       "runtimeExecutable": "pnpm",
       "skipFiles": ["<node_internals>/**"],
       "type": "node"

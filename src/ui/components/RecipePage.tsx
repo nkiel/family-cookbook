@@ -19,9 +19,9 @@ import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import HomeIcon from '@mui/icons-material/Home';
 
-import Recipe, { defaultRecipe } from '../common/models/Recipe';
+import Recipe, { defaultRecipe } from '../../common/models/Recipe';
+import Ingredient, { defaultIngredient } from '../../common/models/Ingredient';
 import useApi from '../services/useApi';
-import Ingredient, { defaultIngredient } from '../common/models/Ingredient';
 
 async function RecipeLoader({ params }) {
   // const navigate = useNavigate();

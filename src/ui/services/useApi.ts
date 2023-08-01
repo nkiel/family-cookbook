@@ -1,4 +1,4 @@
-import Recipe from '../common/models/Recipe';
+import Recipe from '../../common/models/Recipe';
 
 const recipeDateMap = (value: Recipe | undefined): Recipe | undefined => {
   if (value) {
@@ -9,21 +9,22 @@ const recipeDateMap = (value: Recipe | undefined): Recipe | undefined => {
 };
 
 export default () => ({
-  API_URL: `${window.location}`,
+  API_URL: '/api',
+  // API_URL: `${window.location}`,
   async api_call<T>(endpoint: string) {
-    return fetch(`http://localhost:3333/${endpoint}`).then(
+    return fetch(`${this.API_URL}/${endpoint}`).then(
       (res) => res.json() as Promise<T>
     );
   },
   post_api_call<T>(endpoint: String = '', body: any = null) {
-    return fetch(`http://localhost:3333/${endpoint}`, {
+    return fetch(`${this.API_URL}/${endpoint}`, {
       method: 'POST',
       body: JSON.stringify(body),
       headers: { 'Content-Type': 'application/json' },
     }).then((res) => res.json() as Promise<T>);
   },
   put_api_call<T>(endpoint: String = '', body: any = null) {
-    return fetch(`http://localhost:3333/${endpoint}`, {
+    return fetch(`${this.API_URL}/${endpoint}`, {
       method: 'PUT',
       body: JSON.stringify(body),
       headers: { 'Content-Type': 'application/json' },
