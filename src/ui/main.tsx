@@ -25,21 +25,13 @@ const router = createBrowserRouter(
           element: <CookbookHome />,
         },
         {
-          // path: 'recipe/:rid?',
-          path: 'recipe',
+          path: 'recipe/:rid?',
           element: <RecipePage />,
           loader: RecipeLoader,
-          // path: 'recipe',
-          // children: [
-          //   {
-          //     path: '',
-          //     element: <RecipeView />,
-          //   },
-          // ],
         },
       ],
     },
-  ],
+  ]
   // { basename: process.env.APP_BASEURL ? `/${process.env.APP_BASEURL}` : '' }
 );
 

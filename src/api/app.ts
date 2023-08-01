@@ -1,5 +1,9 @@
 import express from 'express';
+import morgan from 'morgan';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
 
+import AppEnv from '../common/models/AppEnv';
 import indexRouter from './routes/index';
 import recipeRouter from './routes/recipe';
 import testRouter from './routes/test';
@@ -7,25 +11,21 @@ import configRouter from './routes/config';
 
 const app = express();
 
-// debug('test:server');
+switch (process.env.ENV_NAME) {
+  case AppEnv.PROD:
+    app.use(morgan('common'));
+    break;
+  case AppEnv.DEVL:
+  default:
+    app.use(morgan('dev'));
+    break;
+}
 
-// switch (process.env.ENV_NAME) {
-//   case 'prod':
-//     {
-//       app.use(morgan('common'));
-//     }
-//   case 'dev':
-//   default:
-//     {
-//       app.use(morgan('dev'));
-//     }
-//     break;
-// }
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
 
-// app.use(cors());
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: false }));
-// app.use(cookieParser());
 const api = express.Router();
 
 api.use('/', indexRouter);

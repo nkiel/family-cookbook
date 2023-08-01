@@ -25,13 +25,6 @@ node_modules/
 # TypeScript
 dist/
 
-# dotenv environment variable files
-.env
-.env.development.local
-.env.test.local
-.env.production.local
-.env.local
-
 # AWS DynamoDB Local files
 .dynamodb/
 .aws/
@@ -53,3 +46,6 @@ dist/
 *.njsproj
 *.sln
 *.sw?
+
+# Local files
+*.local
