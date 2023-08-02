@@ -2,12 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {
   createBrowserRouter,
-  Navigate,
   RouterProvider,
 } from 'react-router-dom';
 import App from './App';
 import CookbookHome, { CookbookLoader } from './components/CookbookHome';
-import RecipePage, { RecipeLoader } from './components/RecipePage';
+import RecipePage, { RecipeLoader } from './components/recipe/RecipePage';
 import ErrorPage from './components/ErrorPage';
 import './index.css';
 
@@ -32,7 +31,6 @@ const router = createBrowserRouter(
       ],
     },
   ]
-  // { basename: process.env.APP_BASEURL ? `/${process.env.APP_BASEURL}` : '' }
 );
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(

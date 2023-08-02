@@ -3,7 +3,7 @@ import morgan from 'morgan';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 
-import AppEnv from '../common/models/AppEnv';
+import AppEnv from '../common/AppEnv';
 import indexRouter from './routes/index';
 import recipeRouter from './routes/recipe';
 import testRouter from './routes/test';

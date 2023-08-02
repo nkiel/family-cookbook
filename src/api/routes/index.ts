@@ -1,14 +1,15 @@
 import express from 'express';
-var router = express.Router();
+
+const router = express.Router();
 
 const cookbookName = 'Kiel Family';
 
 /* GET home page. */
-router.get('/', function (req, res, next) {
+router.get('/', (req, res) => {
   res.send({ app: `${cookbookName} Cookbook` });
 });
 
-router.get('/hello', function (req, res, next) {
+router.get('/hello', (req, res) => {
   res.send({ greeting: `Hello and Welcome to the ${cookbookName} Cookbook` });
 });
 

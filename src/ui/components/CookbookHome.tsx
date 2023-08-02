@@ -1,39 +1,29 @@
 import {
-  Box,
   Button,
   CardContent,
   CardHeader,
   Container,
-  FormGroup,
   Paper,
   Stack,
   TextField,
   Typography,
 } from '@mui/material';
-import { useState, useMemo, useEffect } from 'react';
-import {
-  Link as RouterLink,
-  useLoaderData,
-  useLocation,
-  useSearchParams,
-} from 'react-router-dom';
-import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
+import React, { useState, useMemo } from 'react';
+import { Link as RouterLink, useLoaderData } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
-import useApi from '../services/useApi';
+import Log from '../../common/Logger';
+import api from '../services/api';
 import Recipe from '../../common/models/Recipe';
-import { ZoomOutMapOutlined } from '@mui/icons-material';
 
 async function CookbookLoader() {
-  const api = useApi();
-  let recipes = await api.getRecipeList();
-  console.log('CookbookLoader recipes', recipes);
+  const recipes = await api.getRecipeList();
+  Log.debug('CookbookLoader recipes', recipes);
   return recipes;
 }
 
 function CookbookHome() {
-  const rList = useLoaderData();
+  const rList = useLoaderData() as Recipe[];
   const [searchTxt, setSearchTxt] = useState('');
-  const api = useApi();
 
   const rListFiltered = useMemo(
     () =>
@@ -47,7 +37,7 @@ function CookbookHome() {
     [rList, searchTxt]
   );
 
-  const updateSearchTxt = (txt: String) => {
+  const updateSearchTxt = (txt: string) => {
     setSearchTxt(txt);
   };
 
@@ -61,7 +51,7 @@ function CookbookHome() {
             top: 30,
           }}
         >
-          <Stack direction={'row'}>
+          <Stack direction="row">
             <TextField
               id="recipe-search"
               label="Search"
@@ -77,19 +67,19 @@ function CookbookHome() {
         </Paper>
         {rListFiltered.map((value) => (
           <Paper sx={{ width: 1 }}>
-            <RouterLink to={`./recipe/${value._id}`}>
+            <RouterLink to={`./recipe/${value._id.toString()}`}>
               <CardHeader
                 title={value.title}
-                subheader={value.createTime.toDateString()}
+                subheader={
+                  value.createTime ? value.createTime.toDateString() : undefined
+                }
               />
             </RouterLink>
             <CardContent>
               <Typography>{value.description}</Typography>
-              {value.length && (
-                <Typography>
-                  {value.length.cook} & {value.length.prep}
-                </Typography>
-              )}
+              <Typography>
+                {value.cookTime} & {value.prepTime}
+              </Typography>
             </CardContent>
           </Paper>
         ))}

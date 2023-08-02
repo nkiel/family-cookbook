@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import eslintPlugin from 'vite-plugin-eslint';
 import mixPlugin, { Adapter } from 'vite-plugin-mix';
 
 interface MixConfig {
@@ -17,20 +18,23 @@ const mix = (mixPlugin as unknown as Mix).default;
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react({
-    jsxImportSource: '@emotion/react',
-    babel: {
-      plugins: ["@emotion/babel-plugin"],
-    },
-  }),
-  mix({
-    handler: './src/api/app.ts',
-  }),],
+  plugins: [
+    react({
+      jsxImportSource: '@emotion/react',
+      babel: {
+        plugins: ['@emotion/babel-plugin'],
+      },
+    }),
+    eslintPlugin(),
+    mix({
+      handler: './src/api/app.ts',
+    }),
+  ],
   server: {
     watch: {
-      usePolling: true
+      usePolling: true,
     },
     host: true,
-    port: 3000
-  }
-})
+    port: 3000,
+  },
+});

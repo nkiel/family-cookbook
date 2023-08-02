@@ -1,77 +1,82 @@
 import express from 'express';
+import Log from '../../common/Logger';
 import {
   createRecipe,
   getRecipe,
   recipeList,
   updateRecipe,
 } from '../services/mongoose/dbservice';
-var router = express.Router();
+import Recipe from '../../common/models/Recipe';
+
+const router = express.Router();
 
 /* GET recipe list. */
-router.get('/', async function (req, res, next) {
+router.get('/', (req, res) => {
   recipeList()
     .then((value) => {
       res.send(value);
     })
     .catch((error) => {
-      res.status(400).send({ error });
-      console.trace(error);
+      Log.error(error);
+      res.status(400).send(error);
     });
 });
 
-router.get('/:id', async function (req, res, next) {
+router.get('/:id', (req, res) => {
   getRecipe(req.params.id)
     .then((value) => {
       res.send(value);
     })
     .catch((error) => {
-      res.status(400).send({ error });
-      console.trace(error);
+      Log.error(error);
+      res.status(400).send(error);
     });
 });
 
-router.post('/', async function (req, res, next) {
-  createRecipe(req.body)
+router.post('/', (req, res) => {
+  createRecipe(req.body as Recipe)
     .then((value) => {
       res.send(value);
     })
     .catch((error) => {
-      res.status(400).send({ error });
-      console.trace(error);
+      Log.error(error);
+      res.status(400).send(error);
     });
 });
 
-router.put('/:id', function (req, res, next) {
+router.put('/:id', (req, res) => {
   // if params id == req _id else client error
-  updateRecipe(req.body)
+  updateRecipe(req.body as Recipe)
     .then((value) => {
       res.send(value);
     })
     .catch((error) => {
-      res.status(400).send({ error });
-      console.trace(error);
+      Log.error(error);
+      res.status(400).send(error);
     });
 });
 
-router.post('/new', async function (req, res, next) {
+router.post('/new', (req, res) => {
   createRecipe({
+    _id: 'new',
     title: 'newString',
     description: 'newString description',
     ingredients: [
       {
+        _id: 'testID',
         quantity: 5,
         unit: 'cups',
         name: 'peppers',
       },
     ],
-    cookSteps: ['prep ingredients'],
+    cookSteps: [{ _id: '1', idx: 0, task: 'prep ingredients' }],
   })
     .then((value) => {
       res.send(value);
     })
     .catch((error) => {
-      res.status(400).send({ error });
-      console.trace(error);
+      Log.error(error);
+      res.status(400).send(error);
     });
 });
 

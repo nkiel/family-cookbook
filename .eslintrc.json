@@ -27,6 +27,7 @@
     "indent": "off",
     "comma-dangle": "off",
     "operator-linebreak": "off",
-    "@typescript-eslint/no-inferrable-types": "warn"
+    "@typescript-eslint/no-inferrable-types": "warn",
+    "no-underscore-dangle": "off"
   }
 }

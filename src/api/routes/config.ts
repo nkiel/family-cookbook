@@ -1,9 +1,10 @@
 import express from 'express';
-import { getAppConfig } from '../services/configLoader';
-var router = express.Router();
+import useAppConfig from '../services/useAppConfig';
 
-router.get('/', function (req, res, next) {
-  res.send(getAppConfig());
+const router = express.Router();
+
+router.get('/', (req, res) => {
+  res.send(useAppConfig());
 });
 
 export default router;

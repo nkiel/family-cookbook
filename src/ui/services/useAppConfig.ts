@@ -1,16 +1,13 @@
-import React, { useMemo, useState, useEffect } from 'react';
-import useApi from './useApi';
-
-function AppConfigProvider() {
-  return;
-}
+import { useState, useEffect } from 'react';
+import Log from '../../common/Logger';
+import api from './api';
 
 function useAppConfig() {
-  const api = useApi();
   const [config, setConfig] = useState({});
+
   useEffect(() => {
     const loadConfig = async () => setConfig(await api.api_call('config'));
-    loadConfig();
+    loadConfig().catch((error) => Log.error(error));
   }, []);
   return config;
 }

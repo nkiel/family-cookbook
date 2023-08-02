@@ -1,9 +1,12 @@
 import ObjectId from './ObjectId';
 
 export default class Ingredient {
-  _id?: ObjectId;
+  _id!: ObjectId;
+
   quantity!: number;
+
   unit!: string;
+
   name!: string;
 }
 

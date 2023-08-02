@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
+import Log from '../../../common/Logger';
+import Recipe from '../../../common/models/Recipe';
 import MRecipe from './schema/MRecipe';
-import Recipe from '../../common/models/Recipe';
 
 const mongoConnection = ({
   host = process.env.DB_HOSTNAME,
@@ -9,40 +10,40 @@ const mongoConnection = ({
   user = process.env.DB_USERNAME,
   pass = process.env.DB_PASSWORD,
 } = {}) => {
-  const conn_url = `mongodb://${host}:${port}/${db}`;
-  const conn_options = {
+  const CONN_URL = `mongodb://${host}:${port}/${db}`;
+  const CONN_OPTIONS = {
     authSource: 'admin',
     user,
     pass,
   };
-  console.log('Mongoose connection:',{URL:conn_url, options: conn_options});
-  mongoose.connect(conn_url, conn_options);
+  Log.info('Mongoose connection:\n', {
+    URL: CONN_URL,
+    options: CONN_OPTIONS,
+  });
+  mongoose
+    .connect(CONN_URL, CONN_OPTIONS)
+    .catch((error) =>
+      Log.error('DBService', 'Mongoose Connection Error', error)
+    );
 };
 
 export const serviceSetup = () => {
   mongoConnection();
 };
 
-export const recipeList = () => {
-  return MRecipe.find().exec();
-};
+export const recipeList = () => MRecipe.find().exec();
 
-export const getRecipe = (id: string) => {
-  return MRecipe.findById(id);
-};
+export const getRecipe = (id: string) => MRecipe.findById(id);
 
-export const createRecipe = (newRecipe: Recipe) => {
-  return MRecipe.create(newRecipe);
-};
+export const createRecipe = (newRecipe: Recipe) => MRecipe.create(newRecipe);
 
-export const updateRecipe = (updatedRecipe: Recipe) => {
-  return MRecipe.findOneAndUpdate(
+export const updateRecipe = (updatedRecipe: Recipe) =>
+  MRecipe.findOneAndUpdate(
     { _id: updatedRecipe._id },
     { ...updatedRecipe, updateTime: new Date().toISOString() },
     {
       returnOriginal: false,
     }
   );
-};
 
 serviceSetup();

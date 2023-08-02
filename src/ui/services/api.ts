@@ -1,14 +1,19 @@
 import Recipe from '../../common/models/Recipe';
 
-const recipeDateMap = (value: Recipe | undefined): Recipe | undefined => {
-  if (value) {
-    value.updateTime = new Date(value.updateTime);
-    value.createTime = new Date(value.createTime);
+const recipeCleanDates = (value: Recipe | undefined): Recipe | undefined => {
+  const newValue = value;
+  if (newValue && value) {
+    newValue.updateTime = value.updateTime
+      ? new Date(value.updateTime)
+      : value.updateTime;
+    newValue.createTime = value.createTime
+      ? new Date(value.createTime)
+      : value.createTime;
   }
-  return value;
+  return newValue;
 };
 
-export default () => ({
+export default {
   API_URL: '/api',
   // API_URL: `${window.location}`,
   async api_call<T>(endpoint: string) {
@@ -16,14 +21,14 @@ export default () => ({
       (res) => res.json() as Promise<T>
     );
   },
-  post_api_call<T>(endpoint: String = '', body: any = null) {
+  post_api_call<T>(endpoint = '', body: unknown = null) {
     return fetch(`${this.API_URL}/${endpoint}`, {
       method: 'POST',
       body: JSON.stringify(body),
       headers: { 'Content-Type': 'application/json' },
     }).then((res) => res.json() as Promise<T>);
   },
-  put_api_call<T>(endpoint: String = '', body: any = null) {
+  put_api_call<T>(endpoint = '', body: unknown = null) {
     return fetch(`${this.API_URL}/${endpoint}`, {
       method: 'PUT',
       body: JSON.stringify(body),
@@ -31,20 +36,17 @@ export default () => ({
     }).then((res) => res.json() as Promise<T>);
   },
   async getRecipeList() {
-    return (await this.api_call<Recipe[]>('recipe')).map(recipeDateMap);
+    return (await this.api_call<Recipe[]>('recipe')).map(recipeCleanDates);
   },
   async getRecipe(rid: string) {
-    return recipeDateMap(await this.api_call<Recipe>(`recipe/${rid}`));
+    return recipeCleanDates(await this.api_call<Recipe>(`recipe/${rid}`));
   },
   async postRecipe(recipe: Recipe) {
-    return recipeDateMap(await this.post_api_call<Recipe>(`recipe`, recipe));
+    return recipeCleanDates(await this.post_api_call<Recipe>(`recipe`, recipe));
   },
   async updateRecipe(recipe: Recipe) {
-    return recipeDateMap(
-      await this.put_api_call<Recipe>(
-        `recipe/${recipe._id ? recipe._id : ''}`,
-        recipe
-      )
+    return recipeCleanDates(
+      await this.put_api_call<Recipe>(`recipe/${recipe._id.toString()}`, recipe)
     );
   },
-});
+};
