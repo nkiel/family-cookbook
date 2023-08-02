@@ -21,7 +21,7 @@ function RecipeView() {
       <CardHeader
         avatar={<HomeIcon />}
         title={mRecipe.title}
-        subtitle={mRecipe.updateTime && mRecipe.updateTime.toLocaleString()}
+        subheader={mRecipe.updateTime && mRecipe.updateTime.toLocaleString()}
       />
       <CardContent>
         <Grid2 container>
