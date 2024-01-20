@@ -1,5 +1,7 @@
 export default class Instruction {
-  id!: number;
+  id?: number;
+
+  index!: number;
 
   task!: string;
 

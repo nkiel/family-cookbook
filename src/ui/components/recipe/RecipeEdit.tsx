@@ -66,7 +66,7 @@ function RecipeEdit() {
   const addStep = (isPrepStep = false) => {
     const newSteps = (isPrepStep ? recipe.prepSteps : recipe.cookSteps) || [];
     newSteps.push({
-      id: newSteps.length,
+      index: newSteps.length,
       task: '',
     });
     if (isPrepStep) {
@@ -75,10 +75,10 @@ function RecipeEdit() {
       setRecipe({ ...recipe, cookSteps: newSteps });
     }
   };
-  const setStep = (idx: number, step: string, isPrepStep = false) => {
+  const setStep = (index: number, task: string, isPrepStep = false) => {
     const newSteps = isPrepStep ? recipe.prepSteps || [] : recipe.cookSteps;
-    if (newSteps[idx] !== undefined) {
-      newSteps[idx] = { id: newSteps[idx].id, task: step };
+    if (newSteps[index] !== undefined) {
+      newSteps[index] = { ...newSteps[index], task };
       if (isPrepStep) {
         setRecipe({ ...recipe, prepSteps: newSteps });
       } else {
@@ -90,7 +90,7 @@ function RecipeEdit() {
   const addNote = () => {
     const newNotes = recipe.notes || [];
     newNotes.push({
-      id: newNotes.length,
+      index: newNotes.length,
       task: '',
     });
     setRecipe({ ...recipe, notes: newNotes });
@@ -203,7 +203,7 @@ function RecipeEdit() {
                     fullWidth
                     key={`cook-step-${value.id}`}
                     label={`Prep Step ${idx + 1}`}
-                    defaultValue={value}
+                    defaultValue={value.task}
                     onBlur={(e) => {
                       setStep(idx, e.target.value, true);
                     }}
@@ -223,7 +223,7 @@ function RecipeEdit() {
                     fullWidth
                     key={`cook-step-${value.id}`}
                     label={`Step ${idx + 1}`}
-                    defaultValue={value}
+                    defaultValue={value.task}
                     onBlur={(e) => {
                       setStep(idx, e.target.value);
                     }}
@@ -242,7 +242,7 @@ function RecipeEdit() {
                   <TextField
                     fullWidth
                     key={value.id}
-                    defaultValue={value}
+                    defaultValue={value.task}
                     onBlur={(e) => setNote(idx, e.target.value)}
                   />
                 ))}

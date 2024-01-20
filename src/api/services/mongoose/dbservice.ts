@@ -42,8 +42,13 @@ export const createRecipe = (newRecipe: Recipe) => MRecipe.create(newRecipe);
 
 export const updateRecipe = (updatedRecipe: Recipe) =>
   MRecipe.findOneAndUpdate(
-    { id: updatedRecipe.id },
-    { ...updatedRecipe, updateTime: new Date().toISOString() },
+    { _id: updatedRecipe.id },
+    {
+      ...updatedRecipe,
+      _id: undefined,
+      id: undefined,
+      updateTime: new Date().toISOString(),
+    },
     {
       returnOriginal: false,
     }

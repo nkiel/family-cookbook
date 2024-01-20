@@ -1,10 +1,11 @@
 import { Schema } from 'mongoose';
 import { ImperialUnits, MetricUnits } from '../../../../common/models/Units';
+import { addIdMappingToSchema } from '../mongooseUtils';
 
 const mongooseIngredient = new Schema({
-  id: {
-    type: Schema.Types.ObjectId,
-    ref: '',
+  index: {
+    type: Number,
+    unique: true,
   },
   quantity: {
     type: Number,
@@ -18,7 +19,7 @@ const mongooseIngredient = new Schema({
       message: '{VALUE} is not supported',
     },
   },
-  name: String,
+  pantryId: String,
 });
-
+addIdMappingToSchema(mongooseIngredient);
 export default mongooseIngredient;

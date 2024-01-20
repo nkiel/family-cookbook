@@ -1,6 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from 'react-router-dom';
 import App from './App';
 import { RecipeLoader, RecipesLoader } from './components/recipe/RecipeLoader';
 import RecipesList from './components/recipe/RecipesList';
@@ -17,6 +21,10 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <ErrorPage />,
     children: [
+      {
+        path: '',
+        element: <Navigate to="/recipes" />,
+      },
       {
         path: 'recipes',
         children: [

@@ -71,11 +71,11 @@ function RecipeView() {
                 <Typography variant="h6">Prep Steps</Typography>
               </Grid2>
               {mRecipe.prepSteps
-                .sort((a, b) => a.id - b.id)
+                .sort((a, b) => a.index - b.index)
                 .map((value) => (
                   <Grid2 xs={12} key={value.id}>
                     <Typography>
-                      #{value.id + 1} {value.task}
+                      #{value.index + 1} {value.task}
                     </Typography>
                   </Grid2>
                 ))}
@@ -90,7 +90,7 @@ function RecipeView() {
               {mRecipe.cookSteps.map((value) => (
                 <Grid2 xs={12} key={value.id}>
                   <Typography>
-                    #{value.id + 1} {value.task}
+                    #{value.index + 1} {value.task}
                   </Typography>
                 </Grid2>
               ))}
@@ -105,7 +105,7 @@ function RecipeView() {
               {mRecipe.notes.map((value) => (
                 <Grid2 xs={12}>
                   <Typography>
-                    #{value.idx + 1} {value.task}
+                    #{value.index + 1} {value.task}
                   </Typography>
                 </Grid2>
               ))}

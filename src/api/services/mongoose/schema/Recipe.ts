@@ -2,6 +2,7 @@ import { Schema } from 'mongoose';
 import Recipe from '../../../../common/models/Recipe';
 import Ingredient from './Ingredient';
 import Instruction from './Instruction';
+import { addIdMappingToSchema } from '../mongooseUtils';
 
 const mongooseRecipe = new Schema<Recipe>(
   {
@@ -33,14 +34,5 @@ const mongooseRecipe = new Schema<Recipe>(
   },
   { timestamps: { createdAt: 'createTime', updatedAt: 'updateTime' } }
 );
-mongooseRecipe.virtual('id').get(function () {
-  return this._id.toHexString();
-});
-mongooseRecipe.set('toJSON', {
-  virtuals: true
-});
-
-mongooseRecipe.set('toObject', {
-  virtuals: true
-});
+addIdMappingToSchema(mongooseRecipe);
 export default mongooseRecipe;
