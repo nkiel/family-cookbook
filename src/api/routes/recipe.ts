@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
     })
     .catch((error) => {
       Log.error(error);
-      res.status(400).send(error);
+      res.status(500).send(error);
     });
 });
 
@@ -45,7 +45,7 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-  // if params id == req _id else client error
+  // if params id == req id else client error
   updateRecipe(req.body as Recipe)
     .then((value) => {
       res.send(value);
@@ -58,18 +58,18 @@ router.put('/:id', (req, res) => {
 
 router.post('/new', (req, res) => {
   createRecipe({
-    _id: 'new',
+    id: 'new',
     title: 'newString',
     description: 'newString description',
     ingredients: [
       {
-        _id: 'testID',
+        id: 'testID',
         quantity: 5,
         unit: 'cups',
         name: 'peppers',
       },
     ],
-    cookSteps: [{ _id: '1', idx: 0, task: 'prep ingredients' }],
+    cookSteps: [{ id: '1', idx: 0, task: 'prep ingredients' }],
   })
     .then((value) => {
       res.send(value);

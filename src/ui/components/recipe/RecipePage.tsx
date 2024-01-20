@@ -1,6 +1,6 @@
 import React, { useMemo, useEffect, useState } from 'react';
 import { useParams, useLoaderData, LoaderFunctionArgs } from 'react-router-dom';
-import { CircularProgress, Paper } from '@mui/material';
+import { Card, CircularProgress } from '@mui/material';
 
 import Log from '../../../common/Logger';
 import Recipe, { defaultRecipe } from '../../../common/models/Recipe';
@@ -31,9 +31,9 @@ function RecipePage() {
   }, [mRecipe]);
 
   return mRecipe ? (
-    <Paper sx={{ m: 2 }}>
+    <Card sx={{ m: 2 }}>
       {editMode ? <RecipeEdit inputRecipe={mRecipe} /> : <RecipeView />}
-    </Paper>
+    </Card>
   ) : (
     <CircularProgress />
   );

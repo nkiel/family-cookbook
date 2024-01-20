@@ -29,7 +29,7 @@ app.use(cookieParser());
 const api = express.Router();
 
 api.use('/', indexRouter);
-api.use('/recipe', recipeRouter);
+api.use('/recipes', recipeRouter);
 api.use('/test', testRouter);
 api.use('/config', configRouter);
 

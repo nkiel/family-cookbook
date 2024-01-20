@@ -50,8 +50,10 @@ function RecipeView() {
                 <Typography>Ingredients</Typography>
               </Grid2>
               {mRecipe.ingredients.map((value) => (
-                <Grid2 xs={12}>
-                  <Typography variant="h6">{JSON.stringify(value)}</Typography>
+                <Grid2 xs={12} key={value.id}>
+                  <Typography variant="h6">
+                    {value.quantity} {value.unit} {value.name}
+                  </Typography>
                 </Grid2>
               ))}
             </>
@@ -62,13 +64,15 @@ function RecipeView() {
               <Grid2 xs={12}>
                 <Typography variant="h6">Prep Steps</Typography>
               </Grid2>
-              {mRecipe.prepSteps.map((value, idx) => (
-                <Grid2 xs={12}>
-                  <Typography>
-                    #{idx} {value}
-                  </Typography>
-                </Grid2>
-              ))}
+              {mRecipe.prepSteps
+                .sort((a, b) => (a.id - b.id))
+                .map((value) => (
+                  <Grid2 xs={12} key={value.id}>
+                    <Typography>
+                      #{value.id + 1} {value.task}
+                    </Typography>
+                  </Grid2>
+                ))}
             </>
           )}
           {mRecipe.cookSteps && (
@@ -77,10 +81,10 @@ function RecipeView() {
               <Grid2 xs={12}>
                 <Typography variant="h6">Cook Steps</Typography>
               </Grid2>
-              {mRecipe.cookSteps.map((value, idx) => (
-                <Grid2 xs={12}>
+              {mRecipe.cookSteps.map((value) => (
+                <Grid2 xs={12} key={value.id}>
                   <Typography>
-                    #{idx + 1} {value}
+                    #{value.id + 1} {value.task}
                   </Typography>
                 </Grid2>
               ))}
@@ -92,10 +96,10 @@ function RecipeView() {
               <Grid2 xs={12}>
                 <Typography variant="h6">Notes</Typography>
               </Grid2>
-              {mRecipe.notes.map((value, idx) => (
+              {mRecipe.notes.map((value) => (
                 <Grid2 xs={12}>
                   <Typography>
-                    #{idx + 1} {value}
+                    #{value.idx + 1} {value.task}
                   </Typography>
                 </Grid2>
               ))}

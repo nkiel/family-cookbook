@@ -36,17 +36,20 @@ export default {
     }).then((res) => res.json() as Promise<T>);
   },
   async getRecipeList() {
-    return (await this.api_call<Recipe[]>('recipe')).map(recipeCleanDates);
+    return (await this.api_call<Recipe[]>('recipes')).map(recipeCleanDates);
   },
   async getRecipe(rid: string) {
-    return recipeCleanDates(await this.api_call<Recipe>(`recipe/${rid}`));
+    return recipeCleanDates(await this.api_call<Recipe>(`recipes/${rid}`));
   },
   async postRecipe(recipe: Recipe) {
-    return recipeCleanDates(await this.post_api_call<Recipe>(`recipe`, recipe));
+    return recipeCleanDates(await this.post_api_call<Recipe>(`recipes`, recipe));
   },
   async updateRecipe(recipe: Recipe) {
     return recipeCleanDates(
-      await this.put_api_call<Recipe>(`recipe/${recipe._id.toString()}`, recipe)
+      await this.put_api_call<Recipe>(
+        `recipes/${(recipe.id ? recipe.id : 'undefined').toString()}`,
+        recipe
+      )
     );
   },
 };

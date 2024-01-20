@@ -67,7 +67,7 @@ function CookbookHome() {
         </Paper>
         {rListFiltered.map((value) => (
           <Paper sx={{ width: 1 }}>
-            <RouterLink to={`./recipe/${value._id.toString()}`}>
+            <RouterLink to={`./recipe/${value.id.toString()}`}>
               <CardHeader
                 title={value.title}
                 subheader={

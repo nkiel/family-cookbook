@@ -9,9 +9,9 @@ import {
   CardActions,
 } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
-import Log from "../../../common/Logger";
+import Log from '../../../common/Logger';
 import Recipe, { defaultRecipe } from '../../../common/models/Recipe';
-import Ingredient from '../../../common/models/Ingredient';
+import { defaultIngredient } from '../../../common/models/Ingredient';
 import api from '../../services/api';
 
 type RecipeEditParams = {
@@ -38,7 +38,7 @@ function RecipeEdit({ inputRecipe }: RecipeEditParams) {
 
   const addIngredient = () => {
     const newIngredients = recipe.ingredients || [];
-    newIngredients.push(new Ingredient());
+    newIngredients.push(defaultIngredient);
     // newIngredients.push({...defaultIngredient});
     setRecipe({ ...recipe, ingredients: newIngredients });
   };
@@ -69,8 +69,8 @@ function RecipeEdit({ inputRecipe }: RecipeEditParams) {
   const addStep = (isPrepStep = false) => {
     const newSteps = (isPrepStep ? recipe.prepSteps : recipe.cookSteps) || [];
     newSteps.push({
-      _id: `gen-${newSteps.length}`,
-      task: ''
+      id: newSteps.length,
+      task: '',
     });
     if (isPrepStep) {
       setRecipe({ ...recipe, prepSteps: newSteps });
@@ -81,7 +81,7 @@ function RecipeEdit({ inputRecipe }: RecipeEditParams) {
   const setStep = (idx: number, step: string, isPrepStep = false) => {
     const newSteps = isPrepStep ? recipe.prepSteps || [] : recipe.cookSteps;
     if (newSteps[idx] !== undefined) {
-      newSteps[idx] = { _id: String(idx), task: step };
+      newSteps[idx] = { id: newSteps[idx].id, task: step };
       if (isPrepStep) {
         setRecipe({ ...recipe, prepSteps: newSteps });
       } else {
@@ -92,13 +92,16 @@ function RecipeEdit({ inputRecipe }: RecipeEditParams) {
 
   const addNote = () => {
     const newNotes = recipe.notes || [];
-    newNotes.push('');
+    newNotes.push({
+      id: newNotes.length,
+      task: '',
+    });
     setRecipe({ ...recipe, notes: newNotes });
   };
   const setNote = (idx: number, note: string) => {
     const newNotes = recipe.notes || [];
     if (newNotes[idx] !== undefined) {
-      newNotes[idx] = note;
+      newNotes[idx].task = note;
       setRecipe({ ...recipe, notes: newNotes });
     }
   };
@@ -108,9 +111,9 @@ function RecipeEdit({ inputRecipe }: RecipeEditParams) {
       const saveResult = isNewRecipe
         ? await api.postRecipe(recipe)
         : await api.updateRecipe(recipe);
-      if (saveResult && saveResult._id) {
+      if (saveResult && saveResult.id) {
         // setEditMode(false);
-        navigate(`/recipe/${saveResult._id.toString()}`);
+        navigate(`/recipe/${saveResult.id.toString()}`);
       } else {
         navigate(`/`, {
           state: {
@@ -136,7 +139,7 @@ function RecipeEdit({ inputRecipe }: RecipeEditParams) {
     <>
       <CardContent>
         <Grid container spacing={2}>
-          <Grid xs={4}>
+          <Grid item xs={4}>
             <TextField
               fullWidth
               label="Title"
@@ -144,7 +147,7 @@ function RecipeEdit({ inputRecipe }: RecipeEditParams) {
               onBlur={(e) => setRecipeTitle(e.target.value)}
             />
           </Grid>
-          <Grid xs={12}>
+          <Grid item xs={12}>
             <TextField
               fullWidth
               label="Description"
@@ -152,7 +155,7 @@ function RecipeEdit({ inputRecipe }: RecipeEditParams) {
               onBlur={(e) => setRecipeDescription(e.target.value)}
             />
           </Grid>
-          <Grid>
+          <Grid item>
             <TextField
               fullWidth
               label="Prep Time"
@@ -160,7 +163,7 @@ function RecipeEdit({ inputRecipe }: RecipeEditParams) {
               onBlur={(e) => setRecipePrepTime(Number(e.target.value))}
             />
           </Grid>
-          <Grid>
+          <Grid item>
             <TextField
               fullWidth
               label="Cook Time"
@@ -168,16 +171,12 @@ function RecipeEdit({ inputRecipe }: RecipeEditParams) {
               onBlur={(e) => setRecipeCookTime(Number(e.target.value))}
             />
           </Grid>
-          <Grid xs={12}>
+          <Grid item xs={12}>
             <Stack spacing={2}>
               <Typography>Ingredients</Typography>
               {recipe.ingredients &&
                 recipe.ingredients.map((value, idx) => (
-                  <Stack
-                    direction="row"
-                    spacing={2}
-                    key={`ingredient-${value._id.toString()}`}
-                  >
+                  <Stack direction="row" spacing={2} key={value.id}>
                     <TextField
                       label="Quantity"
                       defaultValue={value.quantity}
@@ -200,14 +199,14 @@ function RecipeEdit({ inputRecipe }: RecipeEditParams) {
               <Button onClick={addIngredient}>Add Ingredient</Button>
             </Stack>
           </Grid>
-          <Grid xs={12}>
+          <Grid item xs={12}>
             <Stack spacing={2}>
               <Typography>Prep Steps</Typography>
               {recipe.prepSteps &&
                 recipe.prepSteps.map((value, idx) => (
                   <TextField
                     fullWidth
-                    key={`cook-step-${value._id}`}
+                    key={`cook-step-${value.id}`}
                     label={`Prep Step ${idx + 1}`}
                     defaultValue={value}
                     onBlur={(e) => {
@@ -220,14 +219,14 @@ function RecipeEdit({ inputRecipe }: RecipeEditParams) {
               </Button>
             </Stack>
           </Grid>
-          <Grid xs={12}>
+          <Grid item xs={12}>
             <Stack spacing={2}>
               <Typography>Cook Steps</Typography>
               {recipe.cookSteps &&
                 recipe.cookSteps.map((value, idx) => (
                   <TextField
                     fullWidth
-                    key={`cook-step-${value._id}`}
+                    key={`cook-step-${value.id}`}
                     label={`Step ${idx + 1}`}
                     defaultValue={value}
                     onBlur={(e) => {
@@ -240,14 +239,14 @@ function RecipeEdit({ inputRecipe }: RecipeEditParams) {
               </Button>
             </Stack>
           </Grid>
-          <Grid xs={12}>
+          <Grid item xs={12}>
             <Stack spacing={2}>
               <Typography>Notes</Typography>
               {recipe.notes &&
                 recipe.notes.map((value, idx) => (
                   <TextField
                     fullWidth
-                    key={`cook-step-${value}`}
+                    key={value.id}
                     defaultValue={value}
                     onBlur={(e) => setNote(idx, e.target.value)}
                   />
