@@ -8,20 +8,21 @@ import {
   Button,
   CardActions,
 } from '@mui/material';
-import { useNavigate, useParams } from 'react-router-dom';
+import {
+  useAsyncValue,
+  useNavigate,
+  useParams,
+} from 'react-router-dom';
 import Log from '../../../common/Logger';
 import Recipe, { defaultRecipe } from '../../../common/models/Recipe';
 import { defaultIngredient } from '../../../common/models/Ingredient';
 import api from '../../services/api';
 
-type RecipeEditParams = {
-  inputRecipe: Recipe;
-};
-function RecipeEdit({ inputRecipe }: RecipeEditParams) {
+function RecipeEdit() {
   const navigate = useNavigate();
   const { rid } = useParams();
-  const [recipe, setRecipe] = useState<Recipe>(inputRecipe);
-  const isNewRecipe = useMemo(() => rid === '' || !rid, [rid]);
+  const isNewRecipe = useMemo(() => rid === 'new' || !rid, [rid]);
+  const [recipe, setRecipe] = useState<Recipe>(useAsyncValue() as Recipe);
 
   const setRecipeTitle = (title: string) => {
     setRecipe({ ...recipe, title });
@@ -113,7 +114,7 @@ function RecipeEdit({ inputRecipe }: RecipeEditParams) {
         : await api.updateRecipe(recipe);
       if (saveResult && saveResult.id) {
         // setEditMode(false);
-        navigate(`/recipe/${saveResult.id.toString()}`);
+        navigate(`/recipes/${saveResult.id.toString()}`);
       } else {
         navigate(`/`, {
           state: {

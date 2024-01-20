@@ -12,7 +12,7 @@ function AppHeader() {
   return (
     <AppBar position="sticky">
       <Toolbar>
-        <Typography variant="h1" onClick={() => navigate('/')}>
+        <Typography variant="h1" onClick={() => navigate('/recipes')}>
           {config.appTitle}
         </Typography>
         {env}

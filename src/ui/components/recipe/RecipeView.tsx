@@ -1,16 +1,19 @@
-import { CardHeader, CardContent, Typography, Divider } from '@mui/material';
+import {
+  CardHeader,
+  CardContent,
+  Typography,
+  Divider,
+} from '@mui/material';
 import Grid2 from '@mui/material/Unstable_Grid2';
 import React, { useState, useEffect } from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { useAsyncValue } from 'react-router-dom';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import HomeIcon from '@mui/icons-material/Home';
 import Log from '../../../common/Logger';
-import Recipe, { defaultRecipe } from '../../../common/models/Recipe';
+import Recipe from '../../../common/models/Recipe';
 
 function RecipeView() {
-  const [mRecipe] = useState<Recipe>(
-    (useLoaderData() as Recipe) || defaultRecipe
-  );
+  const [mRecipe] = useState<Recipe>(useAsyncValue() as Recipe);
 
   useEffect(() => {
     Log.debug('recipe update', mRecipe);
@@ -65,7 +68,7 @@ function RecipeView() {
                 <Typography variant="h6">Prep Steps</Typography>
               </Grid2>
               {mRecipe.prepSteps
-                .sort((a, b) => (a.id - b.id))
+                .sort((a, b) => a.id - b.id)
                 .map((value) => (
                   <Grid2 xs={12} key={value.id}>
                     <Typography>

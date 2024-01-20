@@ -11,17 +11,9 @@ import {
 import React, { useState, useMemo } from 'react';
 import { Link as RouterLink, useLoaderData } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
-import Log from '../../common/Logger';
-import api from '../services/api';
-import Recipe from '../../common/models/Recipe';
+import Recipe from '../../../common/models/Recipe';
 
-async function CookbookLoader() {
-  const recipes = await api.getRecipeList();
-  Log.debug('CookbookLoader recipes', recipes);
-  return recipes;
-}
-
-function CookbookHome() {
+function RecipesList() {
   const rList = useLoaderData() as Recipe[];
   const [searchTxt, setSearchTxt] = useState('');
 
@@ -60,14 +52,14 @@ function CookbookHome() {
               value={searchTxt}
               onChange={(event) => updateSearchTxt(event.target.value)}
             />
-            <Button href="/recipe">
+            <Button href="/recipes/new/edit">
               <AddIcon />
             </Button>
           </Stack>
         </Paper>
         {rListFiltered.map((value) => (
           <Paper sx={{ width: 1 }}>
-            <RouterLink to={`./recipe/${value.id.toString()}`}>
+            <RouterLink to={`./${value.id.toString()}`}>
               <CardHeader
                 title={value.title}
                 subheader={
@@ -88,5 +80,4 @@ function CookbookHome() {
   );
 }
 
-export default CookbookHome;
-export { CookbookLoader };
+export default RecipesList;
