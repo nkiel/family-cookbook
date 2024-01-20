@@ -3,10 +3,11 @@ import {
   CardContent,
   Typography,
   Divider,
+  Button,
 } from '@mui/material';
 import Grid2 from '@mui/material/Unstable_Grid2';
 import React, { useState, useEffect } from 'react';
-import { useAsyncValue } from 'react-router-dom';
+import { useAsyncValue, useNavigate } from 'react-router-dom';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import HomeIcon from '@mui/icons-material/Home';
 import Log from '../../../common/Logger';
@@ -14,6 +15,7 @@ import Recipe from '../../../common/models/Recipe';
 
 function RecipeView() {
   const [mRecipe] = useState<Recipe>(useAsyncValue() as Recipe);
+  const navigate = useNavigate();
 
   useEffect(() => {
     Log.debug('recipe update', mRecipe);
@@ -25,6 +27,7 @@ function RecipeView() {
         avatar={<HomeIcon />}
         title={mRecipe.title}
         subheader={mRecipe.updateTime && mRecipe.updateTime.toLocaleString()}
+        action={<Button onClick={() => navigate('./edit')}>EDIT</Button>}
       />
       <CardContent>
         <Grid2 container>

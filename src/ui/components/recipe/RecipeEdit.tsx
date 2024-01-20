@@ -8,13 +8,9 @@ import {
   Button,
   CardActions,
 } from '@mui/material';
-import {
-  useAsyncValue,
-  useNavigate,
-  useParams,
-} from 'react-router-dom';
+import { useAsyncValue, useNavigate, useParams } from 'react-router-dom';
 import Log from '../../../common/Logger';
-import Recipe, { defaultRecipe } from '../../../common/models/Recipe';
+import Recipe from '../../../common/models/Recipe';
 import { defaultIngredient } from '../../../common/models/Ingredient';
 import api from '../../services/api';
 
@@ -126,12 +122,10 @@ function RecipeEdit() {
   };
 
   const cancelEdit = () => {
-    if (rid) {
-      (async () => {
-        setRecipe((await api.getRecipe(rid)) || defaultRecipe);
-      })().catch((error) => Log.error(error));
+    if (rid !== 'new') {
+      navigate('../');
     } else {
-      navigate('./');
+      navigate('/recipes');
     }
   };
 
