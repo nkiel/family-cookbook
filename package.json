@@ -18,6 +18,7 @@
     "setup-win": "pnpm run common-link-clean-win ; pnpm run common-link-win ; pnpm run install"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
     "@mui/icons-material": "^5.14.1",
     "@mui/material": "^5.14.1",
     "@vitejs/plugin-react": "^4.0.3",
@@ -38,7 +39,6 @@
   "devDependencies": {
     "@babel/core": "^7.20.12",
     "@emotion/babel-plugin": "^11.11.0",
-    "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/types": "^7.2.3",
     "@types/cookie-parser": "^1.4.3",
